@@ -10,7 +10,7 @@ const Installments = () => {
   const [error, setError] = useState('')
   const [searchPerformed, setSearchPerformed] = useState(false)
 
-  const API_URL = 'http://localhost:5000/api'
+  const API_URL = "https://surksha360-backend.onrender.com/api"
 
   // Fetch family details by ID
   const fetchFamilyDetails = async () => {
