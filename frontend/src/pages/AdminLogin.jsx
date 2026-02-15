@@ -25,7 +25,7 @@ export default function AdminLogin({ setUser, embedded = false }) {
     setError('')
 
     try {
-      const { data } = await axios.post('http://localhost:5000/api/admins/login', formData)
+      const { data } = await axios.post('https://surksha360-backend.onrender.com/api/admins/login', formData)
       localStorage.setItem('userInfo', JSON.stringify(data))
       setUser(data)
       
