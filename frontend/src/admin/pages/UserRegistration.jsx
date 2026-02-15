@@ -130,7 +130,7 @@ export default function UserRegistration() {
     console.log('📤 Sending data to API:', registrationData);
     
     // Use full URL instead of relative path
-    const API_URL = 'http://localhost:5000/api'; // or use environment variable
+    const API_URL = "https://surksha360-backend.onrender.com/api"; // or use environment variable
     console.log('🌐 API URL:', `${API_URL}/registrations`);
 
     // Save to database with full URL
@@ -164,7 +164,7 @@ export default function UserRegistration() {
       console.error('⚠️ No response received from server:');
       console.error('Request:', error.request);
       
-      alert('No response from server. Please check if the backend server is running on port 5000.');
+      alert('No response from server. Please check if the backend server is running on port https://surksha360-backend.onrender.com.');
     } else {
       console.error('⚠️ Error setting up request:', error.message);
       alert(`Error: ${error.message}`);
