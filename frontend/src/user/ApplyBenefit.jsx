@@ -52,7 +52,7 @@ const ApplyBenefit = () => {
   const [trackLoading, setTrackLoading] = useState(false)
   const [lastSubmittedApp, setLastSubmittedApp] = useState(null)
 
-  const API_URL = 'http://localhost:5000/api'
+  const API_URL = "https://surksha360-backend.onrender.com/api"
 
   const benefitTypes = [
     'Medical Emergency',
