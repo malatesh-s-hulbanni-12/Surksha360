@@ -26,7 +26,7 @@ export default function UserRegister() {
     setError('')
 
     try {
-      await axios.post('http://localhost:5000/api/users/register', formData)
+      await axios.post('https://surksha360-backend.onrender.com/api/users/register', formData)
       // After successful registration, go to home page with user login form
       navigate('/?role=user&form=login')
     } catch (error) {
