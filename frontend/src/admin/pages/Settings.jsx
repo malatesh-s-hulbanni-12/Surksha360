@@ -7,7 +7,7 @@ export default function Settings() {
   const [remainingAmount, setRemainingAmount] = useState('₹0')
   const [loading, setLoading] = useState(true)
 
-  const API_URL = 'http://localhost:5000/api'
+  const API_URL = "https://surksha360-backend.onrender.com/api"
 
   // Fetch amounts from database
   useEffect(() => {
