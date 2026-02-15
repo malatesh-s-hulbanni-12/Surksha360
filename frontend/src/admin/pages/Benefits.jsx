@@ -17,7 +17,7 @@ export default function Benefits() {
   const [actionLoading, setActionLoading] = useState(false)
   const [toast, setToast] = useState({ show: false, message: '', type: '' })
 
-  const API_URL = 'http://localhost:5000/api'
+  const API_URL = "https://surksha360-backend.onrender.com/api"
 
   // Toast notification
   const showToast = (message, type = 'success') => {
