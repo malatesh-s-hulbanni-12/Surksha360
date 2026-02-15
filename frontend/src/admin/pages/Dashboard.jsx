@@ -193,7 +193,7 @@ export default function Dashboard({ user }) {
 
   if (loading && !refreshing) {
     return (
-      <div className="min-h-screen bg-gray-50 p-4 md:p-6 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 p-4 flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gray-200 border-t-indigo-600"></div>
           <p className="mt-3 text-gray-600 text-sm">Loading dashboard...</p>
@@ -203,122 +203,99 @@ export default function Dashboard({ user }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-3 md:p-6">
-      <div className="max-w-7xl mx-auto space-y-4 md:space-y-6">
+    <div className="min-h-screen bg-gray-50">
+      <div className="px-3 py-4 md:px-6 md:py-6 max-w-7xl mx-auto">
+        <div className="space-y-4 md:space-y-6">
         
-        {/* Header with Greeting and Refresh Button */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 animate-fadeIn">
-          <div>
-            <h1 className="text-xl md:text-2xl font-bold text-gray-800">
-              Dashboard Overview
-            </h1>
-            <p className="text-xs md:text-sm text-gray-500 mt-1">
-              Welcome back, {user?.name || 'Admin'}! Here's what's happening.
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-2 text-xs bg-white px-3 py-2 rounded-lg shadow-sm">
-              <span className="text-gray-500">📅</span>
-              <span className="text-gray-700">{new Date().toLocaleDateString('en-IN', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}</span>
+          {/* Header with Greeting and Refresh Button */}
+          <div className="flex flex-col gap-3 animate-fadeIn">
+            <div>
+              <h1 className="text-xl md:text-2xl font-bold text-gray-800">
+                Dashboard Overview
+              </h1>
+              <p className="text-xs md:text-sm text-gray-500 mt-1">
+                Welcome back, {user?.name || 'Admin'}!
+              </p>
             </div>
-            <button
-              onClick={handleRefresh}
-              disabled={refreshing}
-              className="flex items-center gap-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-2 rounded-lg transition-colors disabled:opacity-50"
-            >
-              <span className={`text-sm ${refreshing ? 'animate-spin' : ''}`}>⟳</span>
-              <span className="hidden xs:inline">{refreshing ? 'Refreshing...' : 'Refresh'}</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Total Remaining Amount Box - Prominent */}
-        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl shadow-lg p-5 md:p-6 animate-slideUp">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="bg-white/20 rounded-xl p-3">
-                <span className="text-white text-2xl md:text-3xl">⏳</span>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1 text-xs bg-white px-3 py-2 rounded-lg shadow-sm">
+                <span className="text-gray-500">📅</span>
+                <span className="text-gray-700">{new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
               </div>
-              <div>
-                <p className="text-indigo-100 text-xs md:text-sm font-medium">Total Remaining Balance</p>
-                <p className="text-white text-2xl md:text-3xl font-bold">{stats.totalRemaining}</p>
-                <p className="text-indigo-200 text-xs mt-1">Available after approved benefits</p>
-              </div>
-            </div>
-            <div className="bg-white/10 rounded-lg px-4 py-2 text-xs text-white">
-              <span className="opacity-80">💰 Collections - 📋 Approved = ⏳ Remaining</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 animate-slideUp" style={{ animationDelay: '0.1s' }}>
-          
-          <div className="bg-white rounded-xl p-4 md:p-5 shadow-md hover:shadow-lg transition-all border-l-4 border-orange-500 transform hover:-translate-y-1">
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-xs text-gray-500 mb-1">Total Users</p>
-                <p className="text-xl md:text-2xl font-bold text-gray-800">{stats.totalUsers}</p>
-              </div>
-              <span className="text-2xl md:text-3xl opacity-80">👥</span>
-            </div>
-            <div className="mt-2 flex items-center gap-1 text-xs">
-              <span className="text-green-600 font-medium">↑ 12%</span>
-              <span className="text-gray-400">from last month</span>
+              <button
+                onClick={handleRefresh}
+                disabled={refreshing}
+                className="flex items-center gap-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-2 rounded-lg transition-colors disabled:opacity-50"
+              >
+                <span className={`text-sm ${refreshing ? 'animate-spin' : ''}`}>⟳</span>
+                <span>{refreshing ? '...' : 'Refresh'}</span>
+              </button>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-4 md:p-5 shadow-md hover:shadow-lg transition-all border-l-4 border-green-500 transform hover:-translate-y-1">
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-xs text-gray-500 mb-1">Active Benefits</p>
-                <p className="text-xl md:text-2xl font-bold text-gray-800">{stats.activeBenefits}</p>
+          {/* Total Remaining Amount Box - Prominent */}
+          <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl shadow-lg p-4 md:p-6 animate-slideUp">
+            <div className="flex items-center gap-3">
+              <div className="bg-white/20 rounded-lg p-2">
+                <span className="text-white text-xl md:text-3xl">⏳</span>
               </div>
-              <span className="text-2xl md:text-3xl opacity-80">📋</span>
-            </div>
-            <div className="mt-2 flex items-center gap-1 text-xs">
-              <span className="text-green-600 font-medium">↑ 8%</span>
-              <span className="text-gray-400">from last month</span>
+              <div className="flex-1">
+                <p className="text-indigo-100 text-xs font-medium">Total Remaining Balance</p>
+                <p className="text-white text-xl md:text-3xl font-bold">{stats.totalRemaining}</p>
+                <p className="text-indigo-200 text-[10px] md:text-xs mt-1">Available after approved benefits</p>
+              </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-4 md:p-5 shadow-md hover:shadow-lg transition-all border-l-4 border-purple-500 transform hover:-translate-y-1">
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-xs text-gray-500 mb-1">Total Payments</p>
-                <p className="text-xl md:text-2xl font-bold text-gray-800">{stats.totalPayments}</p>
+          {/* Stats Grid */}
+          <div className="grid grid-cols-2 gap-2 md:gap-4 animate-slideUp" style={{ animationDelay: '0.1s' }}>
+            
+            <div className="bg-white rounded-lg p-3 md:p-5 shadow-md border-l-4 border-orange-500">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-[10px] md:text-xs text-gray-500 mb-1">Total Users</p>
+                  <p className="text-base md:text-2xl font-bold text-gray-800">{stats.totalUsers}</p>
+                </div>
+                <span className="text-xl md:text-3xl opacity-80">👥</span>
               </div>
-              <span className="text-2xl md:text-3xl opacity-80">💰</span>
             </div>
-            <div className="mt-2 flex items-center gap-1 text-xs">
-              <span className="text-green-600 font-medium">↑ 15%</span>
-              <span className="text-gray-400">from last month</span>
+
+            <div className="bg-white rounded-lg p-3 md:p-5 shadow-md border-l-4 border-green-500">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-[10px] md:text-xs text-gray-500 mb-1">Active Benefits</p>
+                  <p className="text-base md:text-2xl font-bold text-gray-800">{stats.activeBenefits}</p>
+                </div>
+                <span className="text-xl md:text-3xl opacity-80">📋</span>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg p-3 md:p-5 shadow-md border-l-4 border-purple-500">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-[10px] md:text-xs text-gray-500 mb-1">Total Payments</p>
+                  <p className="text-base md:text-2xl font-bold text-gray-800">{stats.totalPayments}</p>
+                </div>
+                <span className="text-xl md:text-3xl opacity-80">💰</span>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg p-3 md:p-5 shadow-md border-l-4 border-amber-500">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-[10px] md:text-xs text-gray-500 mb-1">Pending Approvals</p>
+                  <p className="text-base md:text-2xl font-bold text-gray-800">{stats.pendingApprovals}</p>
+                </div>
+                <span className="text-xl md:text-3xl opacity-80">⏳</span>
+              </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-4 md:p-5 shadow-md hover:shadow-lg transition-all border-l-4 border-amber-500 transform hover:-translate-y-1">
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-xs text-gray-500 mb-1">Pending Approvals</p>
-                <p className="text-xl md:text-2xl font-bold text-gray-800">{stats.pendingApprovals}</p>
-              </div>
-              <span className="text-2xl md:text-3xl opacity-80">⏳</span>
-            </div>
-            <div className="mt-2 flex items-center gap-1 text-xs">
-              <span className="text-red-600 font-medium">↓ {stats.pendingApprovals}</span>
-              <span className="text-gray-400">need attention</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Charts and Recent Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 animate-slideUp" style={{ animationDelay: '0.2s' }}>
-          
           {/* Simple Bar Chart */}
-          <div className="bg-white rounded-xl shadow-md p-4 md:p-5">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-base md:text-lg font-semibold text-gray-800">Monthly Overview</h2>
-              <div className="flex items-center gap-3 text-xs">
+          <div className="bg-white rounded-xl shadow-md p-3 md:p-5 animate-slideUp" style={{ animationDelay: '0.2s' }}>
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-sm md:text-lg font-semibold text-gray-800">Monthly Overview</h2>
+              <div className="flex items-center gap-2 text-[10px] md:text-xs">
                 <div className="flex items-center gap-1">
                   <span className="w-2 h-2 bg-indigo-600 rounded-full"></span>
                   <span className="text-gray-600">Payments</span>
@@ -330,64 +307,64 @@ export default function Dashboard({ user }) {
               </div>
             </div>
             
-            <div className="h-48 md:h-64 flex items-end justify-center gap-2 md:gap-4">
+            <div className="h-40 md:h-64 flex items-end justify-center gap-1 md:gap-4">
               {getMonthLabels().map((label, index) => (
-                <div key={index} className="flex flex-col items-center gap-1 w-full max-w-[40px]">
+                <div key={index} className="flex flex-col items-center gap-1 w-full max-w-[25px] md:max-w-[40px]">
                   <div className="w-full flex flex-col items-center gap-1">
                     {/* Payment Bar */}
                     <div 
-                      className="w-4 md:w-6 bg-indigo-600 rounded-t transition-all duration-500 hover:opacity-80"
+                      className="w-3 md:w-6 bg-indigo-600 rounded-t"
                       style={{ 
-                        height: `${(chartData.payments[index] / maxChartValue) * 120}px`,
-                        minHeight: '4px'
+                        height: `${(chartData.payments[index] / maxChartValue) * 80}px`,
+                        minHeight: '2px'
                       }}
                     ></div>
                     {/* Benefit Bar */}
                     <div 
-                      className="w-4 md:w-6 bg-green-500 rounded-t transition-all duration-500 hover:opacity-80"
+                      className="w-3 md:w-6 bg-green-500 rounded-t"
                       style={{ 
-                        height: `${(chartData.benefits[index] / maxChartValue) * 120}px`,
-                        minHeight: '4px'
+                        height: `${(chartData.benefits[index] / maxChartValue) * 80}px`,
+                        minHeight: '2px'
                       }}
                     ></div>
                   </div>
-                  <span className="text-xs text-gray-500 mt-2">{label}</span>
+                  <span className="text-[8px] md:text-xs text-gray-500 mt-1">{label}</span>
                 </div>
               ))}
             </div>
             
-            <div className="mt-4 flex flex-wrap justify-center gap-4 text-xs text-gray-400">
+            <div className="mt-3 flex flex-wrap justify-center gap-3 text-[8px] md:text-xs text-gray-400">
               <div className="flex items-center gap-1">
                 <span className="text-indigo-600 font-medium">₹{(chartData.payments.reduce((a, b) => a + b, 0)).toLocaleString('en-IN')}</span>
-                <span>total payments</span>
+                <span>payments</span>
               </div>
               <div className="flex items-center gap-1">
                 <span className="text-green-600 font-medium">₹{(chartData.benefits.reduce((a, b) => a + b, 0)).toLocaleString('en-IN')}</span>
-                <span>total benefits</span>
+                <span>benefits</span>
               </div>
             </div>
           </div>
 
           {/* Recent Activity */}
-          <div className="bg-white rounded-xl shadow-md p-4 md:p-5">
-            <h2 className="text-base md:text-lg font-semibold text-gray-800 mb-4">Recent Activity</h2>
-            <div className="space-y-2 md:space-y-3 max-h-[300px] overflow-y-auto pr-1">
+          <div className="bg-white rounded-xl shadow-md p-3 md:p-5 animate-slideUp" style={{ animationDelay: '0.2s' }}>
+            <h2 className="text-sm md:text-lg font-semibold text-gray-800 mb-3">Recent Activity</h2>
+            <div className="space-y-2">
               {recentActivities.length > 0 ? (
                 recentActivities.map((activity, index) => (
                   <div 
                     key={index} 
-                    className="flex items-center justify-between p-2 md:p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="flex items-center justify-between p-2 bg-gray-50 rounded-lg"
                   >
-                    <div className="flex items-center gap-2 md:gap-3 flex-1 min-w-0">
-                      <span className="text-lg md:text-xl shrink-0">
+                    <div className="flex items-center gap-2 flex-1 min-w-0">
+                      <span className="text-base md:text-xl shrink-0">
                         {activity.type === 'payment' ? '💰' : '📋'}
                       </span>
                       <div className="min-w-0 flex-1">
                         <p className="font-medium text-gray-800 text-xs md:text-sm truncate">{activity.title}</p>
-                        <p className="text-xs text-gray-400">{activity.time}</p>
+                        <p className="text-[8px] md:text-xs text-gray-400">{activity.time}</p>
                       </div>
                     </div>
-                    <span className={`text-xs px-2 py-1 rounded-full shrink-0 ${
+                    <span className={`text-[8px] md:text-xs px-1.5 py-0.5 rounded-full shrink-0 ${
                       activity.status === 'Completed' ? 'bg-green-100 text-green-600' :
                       activity.status === 'Pending' ? 'bg-yellow-100 text-yellow-600' :
                       activity.status === 'Approved' ? 'bg-green-100 text-green-600' :
@@ -398,72 +375,79 @@ export default function Dashboard({ user }) {
                   </div>
                 ))
               ) : (
-                <div className="text-center py-6 text-gray-400 text-sm">
+                <div className="text-center py-4 text-gray-400 text-xs">
                   No recent activities
                 </div>
               )}
             </div>
-            <button className="mt-3 text-xs text-indigo-600 hover:text-indigo-800 font-medium">
-              View all activity →
-            </button>
-          </div>
-        </div>
-
-        {/* Approved Benefits History */}
-        <div className="bg-white rounded-xl shadow-md p-4 md:p-5 animate-slideUp" style={{ animationDelay: '0.3s' }}>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-base md:text-lg font-semibold text-gray-800">Approved Benefits History</h2>
-            <span className="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">
-              {approvedHistory.length} approved
-            </span>
           </div>
 
-          {approvedHistory.length > 0 ? (
-            <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
-              <div className="min-w-[500px] md:min-w-full">
-                {/* Table Header */}
-                <div className="grid grid-cols-4 gap-2 bg-gray-100 p-3 rounded-lg text-xs font-medium text-gray-600 mb-2">
-                  <div className="truncate">Application ID</div>
-                  <div className="truncate">Applicant</div>
-                  <div className="truncate">Benefit Type</div>
-                  <div className="text-right truncate">Amount</div>
-                </div>
+          {/* Approved Benefits History */}
+          <div className="bg-white rounded-xl shadow-md p-3 md:p-5 animate-slideUp" style={{ animationDelay: '0.3s' }}>
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-sm md:text-lg font-semibold text-gray-800">Approved Benefits</h2>
+              <span className="text-[8px] md:text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">
+                {approvedHistory.length} approved
+              </span>
+            </div>
 
-                {/* Table Rows */}
-                <div className="space-y-2 max-h-[250px] overflow-y-auto pr-1">
+            {approvedHistory.length > 0 ? (
+              <div className="space-y-2">
+                {/* Mobile View - Card Layout */}
+                <div className="block md:hidden space-y-2">
                   {approvedHistory.map((item, index) => (
-                    <div 
-                      key={index} 
-                      className="grid grid-cols-4 gap-2 p-3 bg-gray-50 rounded-lg text-xs md:text-sm hover:bg-gray-100 transition-colors items-center"
-                    >
-                      <div className="font-mono text-indigo-600 truncate" title={item.id}>{item.id}</div>
-                      <div className="font-medium text-gray-800 truncate" title={item.name}>{item.name}</div>
-                      <div className="text-gray-600 truncate" title={item.type}>{item.type}</div>
-                      <div className="text-right font-bold text-green-600">₹{item.amount.toLocaleString('en-IN')}</div>
+                    <div key={index} className="bg-gray-50 p-2 rounded-lg">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="font-mono text-indigo-600 text-xs">{item.id}</span>
+                        <span className="font-bold text-green-600 text-xs">₹{item.amount.toLocaleString('en-IN')}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium text-gray-800 text-xs">{item.name}</span>
+                        <span className="text-gray-500 text-[8px]">{item.type}</span>
+                      </div>
                     </div>
                   ))}
                 </div>
+
+                {/* Desktop View - Table Layout */}
+                <div className="hidden md:block overflow-x-auto">
+                  <div className="min-w-full">
+                    <div className="grid grid-cols-4 gap-2 bg-gray-100 p-3 rounded-lg text-xs font-medium text-gray-600 mb-2">
+                      <div>Application ID</div>
+                      <div>Applicant</div>
+                      <div>Benefit Type</div>
+                      <div className="text-right">Amount</div>
+                    </div>
+                    <div className="space-y-2">
+                      {approvedHistory.map((item, index) => (
+                        <div 
+                          key={index} 
+                          className="grid grid-cols-4 gap-2 p-3 bg-gray-50 rounded-lg text-xs hover:bg-gray-100 items-center"
+                        >
+                          <div className="font-mono text-indigo-600 truncate">{item.id}</div>
+                          <div className="font-medium text-gray-800 truncate">{item.name}</div>
+                          <div className="text-gray-600 truncate">{item.type}</div>
+                          <div className="text-right font-bold text-green-600">₹{item.amount.toLocaleString('en-IN')}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          ) : (
-            <div className="text-center py-8 text-gray-400">
-              <span className="text-4xl mb-2 block opacity-30">📋</span>
-              <p className="text-sm">No approved benefits yet</p>
-            </div>
-          )}
-
-          <div className="mt-3 text-right">
-            <button className="text-xs text-indigo-600 hover:text-indigo-800 font-medium">
-              View all approved benefits →
-            </button>
+            ) : (
+              <div className="text-center py-6 text-gray-400">
+                <span className="text-3xl mb-2 block opacity-30">📋</span>
+                <p className="text-xs">No approved benefits yet</p>
+              </div>
+            )}
           </div>
-        </div>
 
-        {/* Last Updated */}
-        <div className="text-center">
-          <p className="text-xs text-gray-400">
-            Last updated: {new Date().toLocaleTimeString('en-IN')}
-          </p>
+          {/* Last Updated */}
+          <div className="text-center">
+            <p className="text-[8px] md:text-xs text-gray-400">
+              Last updated: {new Date().toLocaleTimeString('en-IN')}
+            </p>
+          </div>
         </div>
       </div>
 
