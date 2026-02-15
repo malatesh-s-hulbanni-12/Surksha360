@@ -6,9 +6,21 @@ export default function UserNavbar({ user, setUser }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const handleLogout = () => {
+    // Clear all user-related data from localStorage
     localStorage.removeItem('userInfo')
-    setUser(null)
-    navigate('/')
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    
+    // Clear any session storage if used
+    sessionStorage.clear()
+    
+    // Update parent component state
+    if (setUser) {
+      setUser(null)
+    }
+    
+    // Navigate to home page (/) path only
+    navigate('/', { replace: true })
   }
 
   return (
@@ -35,15 +47,16 @@ export default function UserNavbar({ user, setUser }) {
 
           {/* Center - Navigation Links (Desktop) */}
           <div className="hidden lg:flex items-center space-x-8">
-            {/* Benefits Link - Navigates to Benefits Page */}
+            {/* Benefits Link - Now styled like Installments button */}
             <button
               onClick={() => navigate('/user/benefits')}
-              className="text-gray-700 hover:text-green-600 transition-colors duration-200 font-medium"
+              className="px-6 py-2.5 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg font-semibold hover:from-purple-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2"
             >
-              Benefits
+              <span>🎁</span>
+              <span>Benefits</span>
             </button>
 
-            {/* Installments Button - Navigates to Installments Page */}
+            {/* Installments Button */}
             <button
               onClick={() => navigate('/user/installments')}
               className="px-6 py-2.5 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg font-semibold hover:from-green-600 hover:to-green-700 transform hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2"
@@ -52,7 +65,7 @@ export default function UserNavbar({ user, setUser }) {
               <span>Get Your Installments</span>
             </button>
 
-            {/* Apply for Benefit Button - Navigates to Apply Page */}
+            {/* Apply for Benefit Button */}
             <button
               onClick={() => navigate('/user/apply-benefit')}
               className="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg font-semibold hover:from-blue-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2"
@@ -98,16 +111,17 @@ export default function UserNavbar({ user, setUser }) {
         {isMobileMenuOpen && (
           <div className="lg:hidden py-4 border-t border-gray-100 animate-slideDown">
             {/* Navigation Links */}
-            <div className="space-y-2 mb-4">
-              {/* Benefits Link */}
+            <div className="space-y-3 mb-4">
+              {/* Benefits Link - Now styled like Installments button */}
               <button
                 onClick={() => {
                   navigate('/user/benefits')
                   setIsMobileMenuOpen(false)
                 }}
-                className="w-full px-4 py-3 text-left text-gray-700 hover:bg-green-50 rounded-lg transition-colors font-medium"
+                className="w-full px-4 py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg font-semibold hover:from-purple-600 hover:to-purple-700 transition-all flex items-center justify-center space-x-2"
               >
-                Benefits
+                <span>🎁</span>
+                <span>Benefits</span>
               </button>
 
               {/* Installments Button */}
