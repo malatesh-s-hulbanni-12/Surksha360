@@ -26,7 +26,7 @@ export default function AdminRegister() {
     setError('')
 
     try {
-      await axios.post('http://localhost:5000/api/admins/register', formData)
+      await axios.post('https://surksha360-backend.onrender.com/api/admins/register', formData)
       // After successful registration, go to home page with admin login form
       navigate('/?role=admin&form=login')
     } catch (error) {
