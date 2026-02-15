@@ -18,7 +18,7 @@ export default function Dashboard({ user }) {
     benefits: [0, 0, 0, 0, 0, 0]
   })
 
-  const API_URL = 'http://localhost:5000/api'
+  const API_URL = "https://surksha360-backend.onrender.com/api"
 
   useEffect(() => {
     fetchDashboardData()
