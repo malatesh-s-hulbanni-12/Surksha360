@@ -219,7 +219,7 @@ export default function Dashboard({ user }) {
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-2 text-xs bg-white px-3 py-2 rounded-lg shadow-sm">
               <span className="text-gray-500">📅</span>
-              <span className="text-gray-700">{new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+              <span className="text-gray-700">{new Date().toLocaleDateString('en-IN', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}</span>
             </div>
             <button
               onClick={handleRefresh}
@@ -227,7 +227,7 @@ export default function Dashboard({ user }) {
               className="flex items-center gap-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-2 rounded-lg transition-colors disabled:opacity-50"
             >
               <span className={`text-sm ${refreshing ? 'animate-spin' : ''}`}>⟳</span>
-              <span>{refreshing ? 'Refreshing...' : 'Refresh'}</span>
+              <span className="hidden xs:inline">{refreshing ? 'Refreshing...' : 'Refresh'}</span>
             </button>
           </div>
         </div>
@@ -356,7 +356,7 @@ export default function Dashboard({ user }) {
               ))}
             </div>
             
-            <div className="mt-4 flex justify-center gap-4 text-xs text-gray-400">
+            <div className="mt-4 flex flex-wrap justify-center gap-4 text-xs text-gray-400">
               <div className="flex items-center gap-1">
                 <span className="text-indigo-600 font-medium">₹{(chartData.payments.reduce((a, b) => a + b, 0)).toLocaleString('en-IN')}</span>
                 <span>total payments</span>
@@ -371,7 +371,7 @@ export default function Dashboard({ user }) {
           {/* Recent Activity */}
           <div className="bg-white rounded-xl shadow-md p-4 md:p-5">
             <h2 className="text-base md:text-lg font-semibold text-gray-800 mb-4">Recent Activity</h2>
-            <div className="space-y-2 md:space-y-3">
+            <div className="space-y-2 md:space-y-3 max-h-[300px] overflow-y-auto pr-1">
               {recentActivities.length > 0 ? (
                 recentActivities.map((activity, index) => (
                   <div 
@@ -420,25 +420,25 @@ export default function Dashboard({ user }) {
 
           {approvedHistory.length > 0 ? (
             <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
-              <div className="min-w-[600px] md:min-w-full">
+              <div className="min-w-[500px] md:min-w-full">
                 {/* Table Header */}
                 <div className="grid grid-cols-4 gap-2 bg-gray-100 p-3 rounded-lg text-xs font-medium text-gray-600 mb-2">
-                  <div>Application ID</div>
-                  <div>Applicant</div>
-                  <div>Benefit Type</div>
-                  <div className="text-right">Amount</div>
+                  <div className="truncate">Application ID</div>
+                  <div className="truncate">Applicant</div>
+                  <div className="truncate">Benefit Type</div>
+                  <div className="text-right truncate">Amount</div>
                 </div>
 
                 {/* Table Rows */}
-                <div className="space-y-2">
+                <div className="space-y-2 max-h-[250px] overflow-y-auto pr-1">
                   {approvedHistory.map((item, index) => (
                     <div 
                       key={index} 
                       className="grid grid-cols-4 gap-2 p-3 bg-gray-50 rounded-lg text-xs md:text-sm hover:bg-gray-100 transition-colors items-center"
                     >
-                      <div className="font-mono text-indigo-600 truncate">{item.id}</div>
-                      <div className="font-medium text-gray-800 truncate">{item.name}</div>
-                      <div className="text-gray-600 truncate">{item.type}</div>
+                      <div className="font-mono text-indigo-600 truncate" title={item.id}>{item.id}</div>
+                      <div className="font-medium text-gray-800 truncate" title={item.name}>{item.name}</div>
+                      <div className="text-gray-600 truncate" title={item.type}>{item.type}</div>
                       <div className="text-right font-bold text-green-600">₹{item.amount.toLocaleString('en-IN')}</div>
                     </div>
                   ))}
