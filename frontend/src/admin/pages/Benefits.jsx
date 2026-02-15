@@ -559,60 +559,58 @@ export default function Benefits() {
     <div className="min-h-screen bg-gray-50">
       {/* Toast Notification */}
       {toast.show && (
-        <div className={`fixed top-16 right-2 left-2 md:left-auto md:right-4 z-50 p-3 rounded-lg shadow-xl animate-slideInRight max-w-md mx-auto md:mx-0 ${
+        <div className={`fixed top-16 left-2 right-2 z-50 p-3 rounded-lg shadow-xl animate-slideInRight ${
           toast.type === 'success' ? 'bg-green-50 border-l-4 border-green-500' : 'bg-red-50 border-l-4 border-red-500'
         }`}>
           <div className="flex items-center gap-2">
             <span className={toast.type === 'success' ? 'text-green-600 text-lg' : 'text-red-600 text-lg'}>
               {toast.type === 'success' ? '✓' : '⚠'}
             </span>
-            <p className={toast.type === 'success' ? 'text-green-700 text-xs' : 'text-red-700 text-xs'}>{toast.message}</p>
+            <p className={toast.type === 'success' ? 'text-green-700 text-sm' : 'text-red-700 text-sm'}>{toast.message}</p>
           </div>
         </div>
       )}
 
-      <div className="px-3 py-4 md:px-6 md:py-6 max-w-7xl mx-auto">
-        <div className="space-y-4 md:space-y-6">
+      <div className="px-4 py-4 max-w-7xl mx-auto">
+        <div className="space-y-4">
         
           {/* Header */}
           <div className="animate-fadeIn">
-            <h1 className="text-xl md:text-3xl font-bold text-gray-800">
-              Benefits Management
-            </h1>
-            <p className="text-xs md:text-sm text-gray-500 mt-1">Manage and track all benefit applications (50% approval amount)</p>
+            <h1 className="text-2xl font-bold text-gray-800">Benefits Management</h1>
+            <p className="text-sm text-gray-500 mt-1">Manage and track all benefit applications</p>
           </div>
 
-          {/* Stats Cards - Mobile Optimized */}
-          <div className="grid grid-cols-2 gap-2 md:gap-4 animate-slideUp">
-            <div className="bg-white rounded-lg p-3 md:p-4 shadow-md">
-              <p className="text-[10px] md:text-xs text-gray-500 mb-1">Total Claimed</p>
-              <p className="text-base md:text-xl font-bold text-gray-800">{stats.total}</p>
+          {/* Stats Cards - 2x2 Grid on Mobile */}
+          <div className="grid grid-cols-2 gap-3 animate-slideUp">
+            <div className="bg-white rounded-xl p-4 shadow-sm">
+              <p className="text-xs text-gray-500 mb-1">Total Claimed</p>
+              <p className="text-xl font-bold text-gray-800">{stats.total}</p>
             </div>
             
-            <div className="bg-white rounded-lg p-3 md:p-4 shadow-md">
-              <p className="text-[10px] md:text-xs text-gray-500 mb-1">Approved (50%)</p>
-              <p className="text-base md:text-xl font-bold text-green-600">{stats.approved}</p>
+            <div className="bg-white rounded-xl p-4 shadow-sm">
+              <p className="text-xs text-gray-500 mb-1">Approved (50%)</p>
+              <p className="text-xl font-bold text-green-600">{stats.approved}</p>
             </div>
             
-            <div className="bg-white rounded-lg p-3 md:p-4 shadow-md">
-              <p className="text-[10px] md:text-xs text-gray-500 mb-1">Pending</p>
-              <p className="text-base md:text-xl font-bold text-orange-600">{stats.pending}</p>
+            <div className="bg-white rounded-xl p-4 shadow-sm">
+              <p className="text-xs text-gray-500 mb-1">Pending</p>
+              <p className="text-xl font-bold text-orange-600">{stats.pending}</p>
             </div>
             
-            <div className="bg-white rounded-lg p-3 md:p-4 shadow-md">
-              <p className="text-[10px] md:text-xs text-gray-500 mb-1">Total Claims</p>
-              <p className="text-base md:text-xl font-bold text-indigo-600">{stats.count}</p>
+            <div className="bg-white rounded-xl p-4 shadow-sm">
+              <p className="text-xs text-gray-500 mb-1">Total Claims</p>
+              <p className="text-xl font-bold text-indigo-600">{stats.count}</p>
             </div>
           </div>
 
-          {/* Filter Tabs - Scrollable on Mobile */}
-          <div className="overflow-x-auto -mx-3 px-3 pb-2 animate-slideUp" style={{ animationDelay: '0.1s' }}>
-            <div className="flex gap-1 min-w-max">
+          {/* Filter Tabs - Horizontal Scroll on Mobile */}
+          <div className="overflow-x-auto pb-2 animate-slideUp" style={{ animationDelay: '0.1s' }}>
+            <div className="flex gap-2 min-w-max">
               {['all', 'pending', 'under review', 'approved', 'rejected'].map((f) => (
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
+                  className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
                     filter === f 
                       ? 'bg-indigo-600 text-white shadow-md' 
                       : 'bg-white text-gray-600 border border-gray-200'
@@ -620,7 +618,7 @@ export default function Benefits() {
                 >
                   {f}
                   {f !== 'all' && (
-                    <span className={`ml-1 px-1.5 py-0.5 text-[8px] rounded-full ${
+                    <span className={`ml-2 px-1.5 py-0.5 text-xs rounded-full ${
                       filter === f ? 'bg-white/20' : 'bg-gray-100'
                     }`}>
                       {benefits.filter(b => b.status.toLowerCase() === f.toLowerCase()).length}
@@ -631,42 +629,53 @@ export default function Benefits() {
             </div>
           </div>
 
-          {/* Mobile Card View - Shown only on mobile */}
-          <div className="block md:hidden space-y-3 animate-slideUp" style={{ animationDelay: '0.2s' }}>
+          {/* Benefits List - Card View for All Screen Sizes */}
+          <div className="space-y-3 animate-slideUp" style={{ animationDelay: '0.2s' }}>
             {filteredBenefits.length > 0 ? (
               filteredBenefits.map((benefit) => (
-                <div key={benefit.id} className="bg-white rounded-lg p-3 shadow-sm border border-gray-100">
-                  <div className="flex justify-between items-start mb-2">
+                <div key={benefit.id} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                  {/* Header with Status */}
+                  <div className="flex justify-between items-start mb-3">
                     <div>
-                      <p className="font-medium text-gray-800 text-sm">{benefit.user}</p>
-                      <p className="text-[10px] text-gray-500">ID: {benefit.applicationId}</p>
+                      <p className="font-semibold text-gray-800">{benefit.user}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">ID: {benefit.applicationId}</p>
                     </div>
-                    <span className={`px-2 py-0.5 rounded-full text-[8px] font-medium ${getStatusColor(benefit.status)}`}>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(benefit.status)}`}>
                       {getStatusIcon(benefit.status)} {benefit.status}
                     </span>
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-2 text-xs mb-2">
+                  {/* Details Grid */}
+                  <div className="grid grid-cols-2 gap-3 mb-3">
                     <div>
-                      <p className="text-[8px] text-gray-500">Type</p>
-                      <p className="font-medium text-xs truncate">{benefit.type}</p>
+                      <p className="text-xs text-gray-500">Type</p>
+                      <p className="text-sm font-medium text-gray-800">{benefit.type}</p>
                     </div>
                     <div>
-                      <p className="text-[8px] text-gray-500">Claimed</p>
-                      <p className="font-medium text-xs">{benefit.formattedAmount}</p>
+                      <p className="text-xs text-gray-500">Claimed</p>
+                      <p className="text-sm font-medium text-gray-800">{benefit.formattedAmount}</p>
                     </div>
                     {benefit.status === 'Approved' && (
                       <div className="col-span-2">
-                        <p className="text-[8px] text-gray-500">Approved (50%)</p>
-                        <p className="font-medium text-xs text-green-600">{benefit.formattedApprovedAmount}</p>
+                        <p className="text-xs text-gray-500">Approved (50%)</p>
+                        <p className="text-sm font-medium text-green-600">{benefit.formattedApprovedAmount}</p>
                       </div>
                     )}
+                    <div>
+                      <p className="text-xs text-gray-500">Date</p>
+                      <p className="text-sm text-gray-600">{benefit.date}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-500">Family</p>
+                      <p className="text-sm text-gray-600">{benefit.familyId}</p>
+                    </div>
                   </div>
 
-                  <div className="flex gap-1.5 pt-2 border-t border-gray-100">
+                  {/* Action Buttons */}
+                  <div className="flex flex-wrap gap-2 pt-2 border-t border-gray-100">
                     <button
                       onClick={() => viewDetails(benefit)}
-                      className="flex-1 py-1.5 text-[10px] bg-indigo-50 text-indigo-600 rounded"
+                      className="px-3 py-1.5 text-sm bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100"
                     >
                       View
                     </button>
@@ -675,13 +684,13 @@ export default function Benefits() {
                       <>
                         <button
                           onClick={() => updateStatus(benefit.id, 'Approved')}
-                          className="flex-1 py-1.5 text-[10px] bg-green-50 text-green-600 rounded"
+                          className="px-3 py-1.5 text-sm bg-green-50 text-green-600 rounded-lg hover:bg-green-100"
                         >
                           Approve
                         </button>
                         <button
                           onClick={() => updateStatus(benefit.id, 'Under Review')}
-                          className="flex-1 py-1.5 text-[10px] bg-blue-50 text-blue-600 rounded"
+                          className="px-3 py-1.5 text-sm bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100"
                         >
                           Review
                         </button>
@@ -692,13 +701,13 @@ export default function Benefits() {
                       <>
                         <button
                           onClick={() => updateStatus(benefit.id, 'Approved')}
-                          className="flex-1 py-1.5 text-[10px] bg-green-50 text-green-600 rounded"
+                          className="px-3 py-1.5 text-sm bg-green-50 text-green-600 rounded-lg hover:bg-green-100"
                         >
                           Approve
                         </button>
                         <button
                           onClick={() => updateStatus(benefit.id, 'Pending')}
-                          className="flex-1 py-1.5 text-[10px] bg-yellow-50 text-yellow-600 rounded"
+                          className="px-3 py-1.5 text-sm bg-yellow-50 text-yellow-600 rounded-lg hover:bg-yellow-100"
                         >
                           Pending
                         </button>
@@ -711,7 +720,7 @@ export default function Benefits() {
                           setSelectedBenefit(benefit)
                           setShowAcknowledgmentModal(true)
                         }}
-                        className="flex-1 py-1.5 text-[10px] bg-purple-50 text-purple-600 rounded"
+                        className="px-3 py-1.5 text-sm bg-purple-50 text-purple-600 rounded-lg hover:bg-purple-100"
                       >
                         Acknowledgment
                       </button>
@@ -720,149 +729,67 @@ export default function Benefits() {
                 </div>
               ))
             ) : (
-              <div className="bg-white rounded-lg p-6 text-center text-gray-500 text-sm">
-                <div className="text-3xl mb-2 opacity-30">📋</div>
-                <p className="text-xs">No applications found</p>
+              <div className="bg-white rounded-xl p-8 text-center text-gray-500">
+                <div className="text-4xl mb-3 opacity-30">📋</div>
+                <p className="text-sm">No applications found</p>
               </div>
             )}
-          </div>
-
-          {/* Desktop Table View - Hidden on mobile */}
-          <div className="hidden md:block bg-white rounded-xl shadow-md overflow-hidden animate-slideUp" style={{ animationDelay: '0.2s' }}>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50 text-xs">
-                  <tr>
-                    <th className="px-4 py-3 text-left">Applicant</th>
-                    <th className="px-4 py-3 text-left">App ID</th>
-                    <th className="px-4 py-3 text-left">Type</th>
-                    <th className="px-4 py-3 text-left">Claimed</th>
-                    <th className="px-4 py-3 text-left">Approved</th>
-                    <th className="px-4 py-3 text-left">Status</th>
-                    <th className="px-4 py-3 text-left">Date</th>
-                    <th className="px-4 py-3 text-left">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y text-sm">
-                  {filteredBenefits.map((benefit) => (
-                    <tr key={benefit.id} className="hover:bg-gray-50">
-                      <td className="px-4 py-3">
-                        <div className="font-medium">{benefit.user}</div>
-                        <div className="text-xs text-gray-500">{benefit.familyId}</div>
-                      </td>
-                      <td className="px-4 py-3 font-mono text-xs">{benefit.applicationId}</td>
-                      <td className="px-4 py-3">{benefit.type}</td>
-                      <td className="px-4 py-3 font-medium">{benefit.formattedAmount}</td>
-                      <td className="px-4 py-3">
-                        {benefit.status === 'Approved' ? (
-                          <span className="font-medium text-green-600">{benefit.formattedApprovedAmount}</span>
-                        ) : '-'}
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className={`px-2 py-1 rounded-full text-xs ${getStatusColor(benefit.status)}`}>
-                          {getStatusIcon(benefit.status)} {benefit.status}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-gray-600">{benefit.date}</td>
-                      <td className="px-4 py-3">
-                        <div className="flex gap-2">
-                          <button onClick={() => viewDetails(benefit)} className="text-indigo-600 hover:text-indigo-800 text-xs">
-                            View
-                          </button>
-                          
-                          {benefit.status === 'Pending' && (
-                            <>
-                              <button onClick={() => updateStatus(benefit.id, 'Approved')} className="text-green-600 hover:text-green-800 text-xs">
-                                Approve
-                              </button>
-                              <button onClick={() => updateStatus(benefit.id, 'Under Review')} className="text-blue-600 hover:text-blue-800 text-xs">
-                                Review
-                              </button>
-                            </>
-                          )}
-                          
-                          {benefit.status === 'Under Review' && (
-                            <>
-                              <button onClick={() => updateStatus(benefit.id, 'Approved')} className="text-green-600 hover:text-green-800 text-xs">
-                                Approve
-                              </button>
-                              <button onClick={() => updateStatus(benefit.id, 'Pending')} className="text-yellow-600 hover:text-yellow-800 text-xs">
-                                Pending
-                              </button>
-                            </>
-                          )}
-                          
-                          {benefit.status === 'Approved' && (
-                            <button onClick={() => {
-                              setSelectedBenefit(benefit)
-                              setShowAcknowledgmentModal(true)
-                            }} className="text-purple-600 hover:text-purple-800 text-xs">
-                              Acknowledgment
-                            </button>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
           </div>
         </div>
       </div>
 
       {/* Details Modal - Mobile Optimized */}
       {showDetailsModal && selectedBenefit && (
-        <div className="fixed inset-0 bg-black/50 flex items-end md:items-center justify-center z-50 animate-fadeIn">
-          <div className="bg-white w-full md:max-w-2xl md:rounded-lg max-h-[85vh] overflow-y-auto rounded-t-xl">
-            <div className="sticky top-0 bg-white border-b p-3 flex justify-between items-center">
-              <h2 className="font-bold text-sm">Application Details</h2>
-              <button onClick={() => setShowDetailsModal(false)} className="text-gray-500 text-lg">✕</button>
+        <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center z-50 animate-fadeIn">
+          <div className="bg-white w-full sm:max-w-lg rounded-t-xl sm:rounded-lg max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white border-b p-4 flex justify-between items-center">
+              <h2 className="font-semibold text-gray-800">Application Details</h2>
+              <button onClick={() => setShowDetailsModal(false)} className="text-gray-500 text-xl">✕</button>
             </div>
             
-            <div className="p-4 space-y-3">
+            <div className="p-4 space-y-4">
               <div className="flex justify-between items-center">
-                <span className="text-xs text-gray-600">ID: {selectedBenefit.applicationId}</span>
-                <span className={`px-2 py-1 rounded-full text-[8px] ${getStatusColor(selectedBenefit.status)}`}>
+                <span className="text-sm text-gray-600">ID: {selectedBenefit.applicationId}</span>
+                <span className={`px-2 py-1 rounded-full text-xs ${getStatusColor(selectedBenefit.status)}`}>
                   {getStatusIcon(selectedBenefit.status)} {selectedBenefit.status}
                 </span>
               </div>
 
               <div className="bg-gray-50 p-3 rounded-lg">
                 <div className="flex justify-between mb-1">
-                  <span className="text-xs text-gray-600">Claimed:</span>
-                  <span className="font-medium text-xs">{selectedBenefit.formattedAmount}</span>
+                  <span className="text-sm text-gray-600">Claimed:</span>
+                  <span className="font-medium">{selectedBenefit.formattedAmount}</span>
                 </div>
                 <div className="flex justify-between pt-1 border-t border-gray-200">
-                  <span className="text-xs text-gray-600">Approved (50%):</span>
-                  <span className="font-medium text-xs text-green-600">{selectedBenefit.formattedApprovedAmount}</span>
+                  <span className="text-sm text-gray-600">Approved (50%):</span>
+                  <span className="font-medium text-green-600">{selectedBenefit.formattedApprovedAmount}</span>
                 </div>
               </div>
 
               <div>
-                <h3 className="font-medium mb-1 text-xs">Personal Info</h3>
-                <div className="grid grid-cols-2 gap-2 text-xs">
+                <h3 className="font-medium mb-2 text-sm">Personal Info</h3>
+                <div className="grid grid-cols-2 gap-3 text-sm">
                   <div>
-                    <p className="text-[8px] text-gray-500">Name</p>
-                    <p className="text-xs">{selectedBenefit.user}</p>
+                    <p className="text-xs text-gray-500">Name</p>
+                    <p>{selectedBenefit.user}</p>
                   </div>
                   <div>
-                    <p className="text-[8px] text-gray-500">Family ID</p>
-                    <p className="text-xs">{selectedBenefit.familyId}</p>
+                    <p className="text-xs text-gray-500">Family ID</p>
+                    <p>{selectedBenefit.familyId}</p>
                   </div>
                 </div>
               </div>
 
               <div>
-                <h3 className="font-medium mb-1 text-xs">Application</h3>
-                <div className="space-y-1 text-xs">
+                <h3 className="font-medium mb-2 text-sm">Application</h3>
+                <div className="space-y-2 text-sm">
                   <div>
-                    <p className="text-[8px] text-gray-500">Type</p>
-                    <p className="text-xs">{selectedBenefit.type}</p>
+                    <p className="text-xs text-gray-500">Type</p>
+                    <p>{selectedBenefit.type}</p>
                   </div>
                   <div>
-                    <p className="text-[8px] text-gray-500">Reason</p>
-                    <p className="text-xs">{selectedBenefit.reason}</p>
+                    <p className="text-xs text-gray-500">Reason</p>
+                    <p className="text-sm text-gray-600">{selectedBenefit.reason}</p>
                   </div>
                 </div>
               </div>
@@ -873,13 +800,13 @@ export default function Benefits() {
                     <button onClick={() => {
                       updateStatus(selectedBenefit.id, 'Approved')
                       setShowDetailsModal(false)
-                    }} className="flex-1 py-2 bg-green-600 text-white rounded-lg text-xs">
+                    }} className="flex-1 py-2 bg-green-600 text-white rounded-lg text-sm">
                       Approve
                     </button>
                     <button onClick={() => {
                       updateStatus(selectedBenefit.id, 'Under Review')
                       setShowDetailsModal(false)
-                    }} className="flex-1 py-2 bg-blue-600 text-white rounded-lg text-xs">
+                    }} className="flex-1 py-2 bg-blue-600 text-white rounded-lg text-sm">
                       Review
                     </button>
                   </>
@@ -889,13 +816,13 @@ export default function Benefits() {
                     <button onClick={() => {
                       updateStatus(selectedBenefit.id, 'Approved')
                       setShowDetailsModal(false)
-                    }} className="flex-1 py-2 bg-green-600 text-white rounded-lg text-xs">
+                    }} className="flex-1 py-2 bg-green-600 text-white rounded-lg text-sm">
                       Approve
                     </button>
                     <button onClick={() => {
                       updateStatus(selectedBenefit.id, 'Pending')
                       setShowDetailsModal(false)
-                    }} className="flex-1 py-2 bg-yellow-600 text-white rounded-lg text-xs">
+                    }} className="flex-1 py-2 bg-yellow-600 text-white rounded-lg text-sm">
                       Pending
                     </button>
                   </>
@@ -904,11 +831,11 @@ export default function Benefits() {
                   <button onClick={() => {
                     setShowDetailsModal(false)
                     setShowAcknowledgmentModal(true)
-                  }} className="flex-1 py-2 bg-purple-600 text-white rounded-lg text-xs">
+                  }} className="flex-1 py-2 bg-purple-600 text-white rounded-lg text-sm">
                     Acknowledgment
                   </button>
                 )}
-                <button onClick={() => setShowDetailsModal(false)} className="flex-1 py-2 bg-gray-200 text-gray-700 rounded-lg text-xs">
+                <button onClick={() => setShowDetailsModal(false)} className="flex-1 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm">
                   Close
                 </button>
               </div>
@@ -919,48 +846,48 @@ export default function Benefits() {
 
       {/* Acknowledgment Modal - Mobile Optimized */}
       {showAcknowledgmentModal && selectedBenefit && (
-        <div className="fixed inset-0 bg-black/50 flex items-end md:items-center justify-center z-50 animate-fadeIn">
-          <div className="bg-white w-full md:max-w-md md:rounded-lg max-h-[85vh] overflow-y-auto rounded-t-xl">
-            <div className="sticky top-0 bg-white border-b p-3 flex justify-between items-center">
-              <h2 className="font-bold text-sm">Approval Acknowledgment</h2>
-              <button onClick={() => setShowAcknowledgmentModal(false)} className="text-gray-500 text-lg">✕</button>
+        <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center z-50 animate-fadeIn">
+          <div className="bg-white w-full sm:max-w-md rounded-t-xl sm:rounded-lg max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white border-b p-4 flex justify-between items-center">
+              <h2 className="font-semibold text-gray-800">Approval Acknowledgment</h2>
+              <button onClick={() => setShowAcknowledgmentModal(false)} className="text-gray-500 text-xl">✕</button>
             </div>
             
             <div className="p-4">
-              <div className="border-2 border-gray-200 p-3 rounded-lg mb-3">
-                <div className="text-center mb-2">
-                  <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-1">
-                    <span className="text-lg">✓</span>
+              <div className="border-2 border-gray-200 p-4 rounded-lg mb-4">
+                <div className="text-center mb-3">
+                  <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <span className="text-xl">✓</span>
                   </div>
-                  <h3 className="font-bold text-sm">Suraksha 360</h3>
-                  <p className="text-[8px] text-gray-500">Approval Acknowledgment</p>
+                  <h3 className="font-bold">Suraksha 360</h3>
+                  <p className="text-xs text-gray-500">Approval Acknowledgment</p>
                 </div>
 
-                <div className="space-y-1 text-xs">
+                <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-[8px] text-gray-600">ID:</span>
-                    <span className="font-medium text-xs">{selectedBenefit.applicationId}</span>
+                    <span className="text-xs text-gray-600">ID:</span>
+                    <span className="font-medium">{selectedBenefit.applicationId}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[8px] text-gray-600">Name:</span>
-                    <span className="text-xs">{selectedBenefit.user}</span>
+                    <span className="text-xs text-gray-600">Name:</span>
+                    <span>{selectedBenefit.user}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[8px] text-gray-600">Claimed:</span>
-                    <span className="text-xs">{selectedBenefit.formattedAmount}</span>
+                    <span className="text-xs text-gray-600">Claimed:</span>
+                    <span>{selectedBenefit.formattedAmount}</span>
                   </div>
-                  <div className="flex justify-between border-t border-gray-200 pt-1 mt-1">
-                    <span className="text-[8px] font-medium">Approved:</span>
-                    <span className="text-xs font-bold text-green-600">{selectedBenefit.formattedApprovedAmount}</span>
+                  <div className="flex justify-between border-t border-gray-200 pt-2 mt-2">
+                    <span className="text-sm font-medium">Approved:</span>
+                    <span className="text-lg font-bold text-green-600">{selectedBenefit.formattedApprovedAmount}</span>
                   </div>
                 </div>
               </div>
 
               <div className="flex gap-2">
-                <button onClick={() => printAcknowledgment(selectedBenefit)} className="flex-1 py-2 bg-indigo-600 text-white rounded-lg text-xs">
+                <button onClick={() => printAcknowledgment(selectedBenefit)} className="flex-1 py-2 bg-indigo-600 text-white rounded-lg text-sm">
                   🖨️ Print
                 </button>
-                <button onClick={() => downloadAcknowledgment(selectedBenefit)} className="flex-1 py-2 bg-green-600 text-white rounded-lg text-xs">
+                <button onClick={() => downloadAcknowledgment(selectedBenefit)} className="flex-1 py-2 bg-green-600 text-white rounded-lg text-sm">
                   📥 Download
                 </button>
               </div>
@@ -1001,4 +928,3 @@ export default function Benefits() {
     </div>
   )
 }
-
